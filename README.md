@@ -20,7 +20,7 @@ Open network where **hashrate does useful work** — mine, trade on paper, disco
 <br/>
 
 [![Site](https://img.shields.io/badge/hackme.tech-00d1ff?style=for-the-badge)](https://hackme.tech)
-[![rc17](https://img.shields.io/badge/channel-0.1.0--rc17_LIVE-39ff14?style=for-the-badge)](https://hackme.tech/downloads.html)
+[![rc17.3](https://img.shields.io/badge/channel-0.1.0--rc17.3_LIVE-39ff14?style=for-the-badge)](https://hackme.tech/downloads.html)
 [![YouTube](https://img.shields.io/badge/YouTube-@HackmeTech-FF0000?style=for-the-badge&logo=youtube&logoColor=white)](https://www.youtube.com/@HackmeTech)
 [![Telegram](https://img.shields.io/badge/Telegram-@hackme__tech-26A5E4?style=for-the-badge&logo=telegram)](https://t.me/hackme_tech)
 
@@ -42,7 +42,7 @@ Open network where **hashrate does useful work** — mine, trade on paper, disco
 
 | Piece | What it is | Status | Code |
 |-------|------------|--------|------|
-| **Core node + pool** | Useful PoW · GPU/CPU miners · Dig/Hunt · research ledgers · installers | **Live** (rc17) | [jokeez/hackme](https://github.com/jokeez/hackme) |
+| **Core node + pool** | Useful PoW · hybrid miners · **Dig** (WASM) · **Hunt** (ASAN / libFuzzer fleet) · escrow · installers | **Live** (rc17.3) | [jokeez/hackme](https://github.com/jokeez/hackme) |
 | **HackMe Spot** | Paper terminal for **HMC / SUP** — no custody, no public matching | **Live** (paper) | [jokeez/hackme-exchange](https://github.com/jokeez/hackme-exchange) |
 | **Useful PoW Index** | Curated registry of projects where hashrate does real work | **Live** | [jokeez/hackme-app](https://github.com/jokeez/hackme-app) |
 | **HMS** | Encrypted storage / seal lane | **Preview** | in [hackme](https://github.com/jokeez/hackme) · [roadmap](https://hackme.tech/) |
@@ -51,7 +51,7 @@ Open network where **hashrate does useful work** — mine, trade on paper, disco
 ```mermaid
 flowchart TB
   subgraph live [Live today]
-    Core["hackme · node · pool · Dig/Hunt"]
+    Core["hackme · node · pool · Dig + Hunt"]
     Spot["hackme-exchange · paper Spot"]
     Index["hackme-app · Useful PoW Index"]
   end
@@ -66,6 +66,17 @@ flowchart TB
   Core -.-> HMS
   Spot -.-> Match
 ```
+
+---
+
+## Security rails (short)
+
+| Rail | What customers buy | Escrow | Evidence |
+|------|--------------------|--------|----------|
+| **Dig** | WASM detector / property depth on the pool | smoke **20/80** · deep **40/60** | Crash-class gate · detector hits = coverage noise, not CVE |
+| **Hunt** | Coverage-guided ASAN (libFuzzer fleet · AFL++ when present) | **50/50** · Lite **20** · Standard **60** · Heavy **150+** HMC | CLEAN = no qualifying native crash in budget — not an OSS-Fuzz replacement |
+
+Customers place Dig/Hunt on their node (`POST /api/security-audit`, `POST /api/hunt/campaigns`) with `pool_distributed: true` so hybrid workers claim shards. Detail: **[hackme README](https://github.com/jokeez/hackme)** · [fuzz guide](https://hackme.tech/fuzz-guide.html).
 
 ---
 
@@ -108,12 +119,14 @@ Product detail (packages, escrow, pool economics) lives in **[hackme README](htt
 
 ## Now → next
 
-| Now | Next |
-|-----|------|
-| Mine on the public pool · verify SHA256 · ship Dig/Hunt orders | Deeper **HMS** storage lane |
+| Now (rc17.3 soft-launch) | Next |
+|--------------------------|------|
+| Public pool + hybrid PoH/Dig/Hunt workers | Product-stage rebuild after soak evidence |
+| Ship Dig + Hunt orders end-to-end (escrow settle live) | Deeper **HMS** storage lane |
+| Hunt Lite / Standard / Heavy SKUs on the pool | More catalog targets + customer inventory Hunt |
+| Research soak (obscure ASAN / dedicated libFuzzer — real hits only) | One HTML ledger of cases · keep publishing evidence |
 | Paper Spot for HMC/SUP | Matching only after security bar (no public edge yet) |
 | Grow the Useful PoW Index | More listed useful-work projects |
-| Research ledgers (Hunt Watch, OSS CVE, …) | Keep publishing evidence, not hype |
 
 ---
 
@@ -121,6 +134,7 @@ Product detail (packages, escrow, pool economics) lives in **[hackme README](htt
 
 [hackme.tech](https://hackme.tech) ·
 [Downloads](https://hackme.tech/downloads.html) ·
+[Orders / packages](https://hackme.tech/orders.html) ·
 [Exchange](https://exchange.hackme.tech) ·
 [Developers](https://hackme.tech/developers.html) ·
 [Research](https://hackme.tech/research.html) ·
@@ -132,6 +146,6 @@ Product detail (packages, escrow, pool economics) lives in **[hackme README](htt
 
 <br/>
 
-<sub>Not financial advice · Official hub: <b>hackme.tech</b> only · verify checksums before install</sub>
+<sub>Not financial advice · Official hub: <a href="https://hackme.tech">hackme.tech</a> only · verify checksums before install</sub>
 
 </div>
